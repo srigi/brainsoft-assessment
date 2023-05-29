@@ -22,7 +22,7 @@ function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
   return server;
 }
 
-export async function startServer() {
+(async () => {
   const server = createServer({
     logger: true,
   });
@@ -35,4 +35,4 @@ export async function startServer() {
     server.log.error(err);
     process.exit(1);
   }
-}
+})();
