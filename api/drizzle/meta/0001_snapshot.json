@@ -1,0 +1,180 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "42409ffa-de79-4e84-9062-7fe3909c0999",
+  "prevId": "bb650649-842b-451f-851f-a7b21e1d27bb",
+  "tables": {
+    "pokemons": {
+      "name": "pokemons",
+      "schema": "",
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "classification": {
+          "name": "classification",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weight": {
+          "name": "weight",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "height": {
+          "name": "height",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "flee_rate": {
+          "name": "flee_rate",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_cp": {
+          "name": "max_cp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_hp": {
+          "name": "max_hp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "uqindex_id": {
+          "name": "uqindex_id",
+          "columns": [
+            "id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    },
+    "pokemonsToTypes": {
+      "name": "pokemonsToTypes",
+      "schema": "",
+      "columns": {
+        "pokemon_id": {
+          "name": "pokemon_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type_id": {
+          "name": "type_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "index_pokemon_id": {
+          "name": "index_pokemon_id",
+          "columns": [
+            "pokemon_id"
+          ],
+          "isUnique": false
+        },
+        "index_type_id": {
+          "name": "index_type_id",
+          "columns": [
+            "type_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "pokemonsToTypes_pokemon_id_pokemons_uuid_fk": {
+          "name": "pokemonsToTypes_pokemon_id_pokemons_uuid_fk",
+          "tableFrom": "pokemonsToTypes",
+          "tableTo": "pokemons",
+          "columnsFrom": [
+            "pokemon_id"
+          ],
+          "columnsTo": [
+            "uuid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "pokemonsToTypes_type_id_types_uuid_fk": {
+          "name": "pokemonsToTypes_type_id_types_uuid_fk",
+          "tableFrom": "pokemonsToTypes",
+          "tableTo": "types",
+          "columnsFrom": [
+            "type_id"
+          ],
+          "columnsTo": [
+            "uuid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {}
+    },
+    "types": {
+      "name": "types",
+      "schema": "",
+      "columns": {
+        "uuid": {
+          "name": "uuid",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "uqindex_name": {
+          "name": "uqindex_name",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

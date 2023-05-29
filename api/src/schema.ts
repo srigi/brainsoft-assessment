@@ -1,3 +1,4 @@
+import { asc, like, gte, sql, and, eq } from "drizzle-orm";
 import {
   queryType,
   intArg,
@@ -5,18 +6,42 @@ import {
   nonNull,
   objectType,
   list,
+  stringArg,
 } from "nexus";
+
 import { pokemons } from "./models";
 
 const PokemonType = objectType({
   name: "Pokemon",
   definition(t) {
-    t.field({ name: "id", type: nonNull("String") });
-    t.field({ name: "name", type: nonNull("String") });
-    t.field({ name: "classification", type: nonNull("String") });
-    t.field({ name: "fleeRate", type: nonNull("Float") });
-    t.field({ name: "maxCP", type: nonNull("Float") });
-    t.field({ name: "maxHP", type: nonNull("Float") });
+    t.field("id", { type: nonNull("String") });
+    t.field("name", { type: nonNull("String") });
+    t.field("classification", { type: nonNull("String") });
+    t.field("height", {
+      type: nonNull(
+        objectType({
+          name: "Height",
+          definition(t) {
+            t.string("minimum");
+            t.string("maximum");
+          },
+        })
+      ),
+    });
+    t.field("weight", {
+      type: nonNull(
+        objectType({
+          name: "Weight",
+          definition(t) {
+            t.string("minimum");
+            t.string("maximum");
+          },
+        })
+      ),
+    });
+    t.field("fleeRate", { type: nonNull("Float") });
+    t.field("maxCP", { type: nonNull("Float") });
+    t.field("maxHP", { type: nonNull("Float") });
   },
 });
 
@@ -38,21 +63,87 @@ export const schema = makeSchema({
           resolve: () => true,
         });
 
-        t.field("pokemons", {
-          type: list(PokemonType),
+        t.field("pokemon", {
+          type: PokemonType,
           args: {
-            limit: intArg({ default: 10 }),
+            id: stringArg(),
+            name: stringArg(),
           },
-          resolve: async (_parent, { limit }, { db }) =>
-            db
+          resolve: async (_parent, { id, name }, { db }) => {
+            const foo = await db
               .select()
               .from(pokemons)
-              .limit(limit as number),
+              .where(
+                and(
+                  id != null ? eq(pokemons.id, id) : undefined,
+                  name != null ? like(pokemons.name, name) : undefined
+                )
+              )
+              .limit(1);
+
+            return foo[0];
+          },
         });
 
-        t.int("add", {
-          args: { x: nonNull(intArg()), y: nonNull(intArg()) },
-          resolve: (_, { x, y }) => x + y,
+        t.field("pokemons", {
+          type: objectType({
+            name: "PokemonsList",
+            definition: (t) => {
+              t.field("edges", { type: list(PokemonType) });
+              t.field("pageInfo", {
+                type: objectType({
+                  name: "PokemonListPageInfo",
+                  definition(t) {
+                    t.string("nextCursor");
+                    t.int("pageSize");
+                  },
+                }),
+              });
+              t.int("totalCount");
+            },
+          }),
+          args: {
+            cursor: stringArg(),
+            pageSize: intArg(),
+          },
+          resolve: async (_parent, { cursor, pageSize = 10 }, { db }) => {
+            if (pageSize == null) {
+              return {
+                edges: [],
+                pageInfo: { nextCursor: null, pageSize },
+                totalCount: 0,
+              };
+            }
+
+            const { totalCount } = (
+              await db
+                .select({ totalCount: sql<number>`count(*)` })
+                .from(pokemons)
+            )[0];
+            const items = await db
+              .select()
+              .from(pokemons)
+              .where(cursor != null ? gte(pokemons.id, cursor) : undefined)
+              .orderBy(asc(pokemons.id))
+              .limit(pageSize + 1);
+
+            let nextCursor: string | undefined = undefined;
+            if (items.length > pageSize) {
+              // Remove the last item and use it as next cursor
+
+              const lastItem = items.pop()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+              nextCursor = lastItem.id;
+            }
+
+            return {
+              edges: items,
+              pageInfo: {
+                nextCursor,
+                pageSize,
+              },
+              totalCount,
+            };
+          },
         });
       },
     }),

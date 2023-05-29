@@ -1,19 +1,25 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "c5a05d5b-c894-4642-ab2f-7894b14c1285",
+  "id": "bb650649-842b-451f-851f-a7b21e1d27bb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "pokemons": {
       "name": "pokemons",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "uuid": {
+          "name": "uuid",
           "type": "uuid",
           "primaryKey": true,
           "notNull": true,
           "default": "gen_random_uuid()"
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
         },
         "name": {
           "name": "name",
@@ -31,15 +37,13 @@
           "name": "weight",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'{ \"minimum\":\"1.0kg\", \"maximum\": \"2.0kg\" }'::jsonb"
+          "notNull": true
         },
         "height": {
           "name": "height",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'{ \"minimum\":\"0.15m\", \"maximum\": \"0.25m\" }'::jsonb"
+          "notNull": true
         },
         "flee_rate": {
           "name": "flee_rate",
@@ -60,7 +64,15 @@
           "notNull": true
         }
       },
-      "indexes": {},
+      "indexes": {
+        "uqindex_id": {
+          "name": "uqindex_id",
+          "columns": [
+            "id"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {}
     }
