@@ -1,18 +1,38 @@
-import fastify, { FastifyInstance } from "fastify";
-import { Server, IncomingMessage, ServerResponse } from "http";
+import fastify, {
+  FastifyInstance,
+  FastifyListenOptions,
+  FastifyServerOptions,
+} from "fastify";
+import mercurius from "mercurius";
 
-const server: FastifyInstance<Server, IncomingMessage, ServerResponse> =
-  fastify({ logger: true });
+import { schema } from "./schema";
 
-server.get("/", async (_req, _res) => {
-  return { hello: "world" };
-});
+function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
+  const server = fastify(opts);
 
-(async () => {
+  server.get("/ping", async () => {
+    return "pong!";
+  });
+  server.register(mercurius, {
+    graphiql: process.env.NODE_ENV !== "production",
+    path: "/graphql",
+    schema,
+  });
+
+  return server;
+}
+
+export async function startServer() {
+  const server = createServer({
+    logger: true,
+  });
+
   try {
-    await server.listen(process.env.PORT || 3000);
+    await server.listen({
+      port: process.env.PORT || 3000,
+    } as FastifyListenOptions);
   } catch (err) {
     server.log.error(err);
     process.exit(1);
   }
-})();
+}

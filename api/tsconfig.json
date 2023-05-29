@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -11,17 +10,12 @@
     ],
     "module": "Node16",
     "moduleResolution": "node",
-    "paths": {
-      "~/*": [
-        "*"
-      ]
-    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022"
   },
   "include": [
-    "src/**/*.ts"
+    "**/*.ts"
   ]
 }
