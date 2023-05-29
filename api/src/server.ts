@@ -1,10 +1,29 @@
 import fastify, { FastifyInstance, FastifyServerOptions } from "fastify";
+import mercurius from "mercurius";
+
+const schema = `
+  type Query {
+    add(x: Int, y: Int): Int
+  }
+`;
+
+const resolvers = {
+  Query: {
+    add: async (_: unknown, { x, y }: { x: number; y: number }) => x + y,
+  },
+};
 
 function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
   const server = fastify(opts);
 
-  server.get("/", async (_req, _res) => {
-    return { hello: "world" };
+  server.get("/ping", async (_req, _res) => {
+    return { message: "pong!" };
+  });
+  server.register(mercurius, {
+    graphiql: process.env.NODE_ENV !== "production",
+    path: "/graphql",
+    resolvers,
+    schema,
   });
 
   return server;

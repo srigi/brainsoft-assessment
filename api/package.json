@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "dotenv": "~16.0",
-    "fastify": "~4.17"
+    "fastify": "~4.17",
+    "mercurius": "~13.0"
   },
   "devDependencies": {
     "@types/node": "^20",
