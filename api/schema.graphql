@@ -2,17 +2,39 @@
 ### Do not make changes to this file directly
 
 
+type Height {
+  maximum: String
+  minimum: String
+}
+
 type Pokemon {
   classification: String!
   fleeRate: Float!
+  height: Height!
   id: String!
   maxCP: Float!
   maxHP: Float!
   name: String!
+  weight: Weight!
+}
+
+type PokemonListPageInfo {
+  nextCursor: String
+  pageSize: Int
+}
+
+type PokemonsList {
+  edges: [Pokemon]
+  pageInfo: PokemonListPageInfo
+  totalCount: Int
 }
 
 type Query {
-  add(x: Int!, y: Int!): Int
   healthy: Boolean
-  pokemons(limit: Int = 10): [Pokemon]
+  pokemons(cursor: String, pageSize: Int): PokemonsList
+}
+
+type Weight {
+  maximum: String
+  minimum: String
 }

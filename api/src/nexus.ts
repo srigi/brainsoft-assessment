@@ -28,15 +28,34 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Height: { // root type
+    maximum?: string | null; // String
+    minimum?: string | null; // String
+  }
   Pokemon: { // root type
     classification: string; // String!
     fleeRate: number; // Float!
+    height: NexusGenRootTypes['Height']; // Height!
     id: string; // String!
     maxCP: number; // Float!
     maxHP: number; // Float!
     name: string; // String!
+    weight: NexusGenRootTypes['Weight']; // Weight!
+  }
+  PokemonListPageInfo: { // root type
+    nextCursor?: string | null; // String
+    pageSize?: number | null; // Int
+  }
+  PokemonsList: { // root type
+    edges?: Array<NexusGenRootTypes['Pokemon'] | null> | null; // [Pokemon]
+    pageInfo?: NexusGenRootTypes['PokemonListPageInfo'] | null; // PokemonListPageInfo
+    totalCount?: number | null; // Int
   }
   Query: {};
+  Weight: { // root type
+    maximum?: string | null; // String
+    minimum?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -50,45 +69,78 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Height: { // field return type
+    maximum: string | null; // String
+    minimum: string | null; // String
+  }
   Pokemon: { // field return type
     classification: string; // String!
     fleeRate: number; // Float!
+    height: NexusGenRootTypes['Height']; // Height!
     id: string; // String!
     maxCP: number; // Float!
     maxHP: number; // Float!
     name: string; // String!
+    weight: NexusGenRootTypes['Weight']; // Weight!
+  }
+  PokemonListPageInfo: { // field return type
+    nextCursor: string | null; // String
+    pageSize: number | null; // Int
+  }
+  PokemonsList: { // field return type
+    edges: Array<NexusGenRootTypes['Pokemon'] | null> | null; // [Pokemon]
+    pageInfo: NexusGenRootTypes['PokemonListPageInfo'] | null; // PokemonListPageInfo
+    totalCount: number | null; // Int
   }
   Query: { // field return type
-    add: number | null; // Int
     healthy: boolean | null; // Boolean
-    pokemons: Array<NexusGenRootTypes['Pokemon'] | null> | null; // [Pokemon]
+    pokemons: NexusGenRootTypes['PokemonsList'] | null; // PokemonsList
+  }
+  Weight: { // field return type
+    maximum: string | null; // String
+    minimum: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Height: { // field return type name
+    maximum: 'String'
+    minimum: 'String'
+  }
   Pokemon: { // field return type name
     classification: 'String'
     fleeRate: 'Float'
+    height: 'Height'
     id: 'String'
     maxCP: 'Float'
     maxHP: 'Float'
     name: 'String'
+    weight: 'Weight'
+  }
+  PokemonListPageInfo: { // field return type name
+    nextCursor: 'String'
+    pageSize: 'Int'
+  }
+  PokemonsList: { // field return type name
+    edges: 'Pokemon'
+    pageInfo: 'PokemonListPageInfo'
+    totalCount: 'Int'
   }
   Query: { // field return type name
-    add: 'Int'
     healthy: 'Boolean'
-    pokemons: 'Pokemon'
+    pokemons: 'PokemonsList'
+  }
+  Weight: { // field return type name
+    maximum: 'String'
+    minimum: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Query: {
-    add: { // args
-      x: number; // Int!
-      y: number; // Int!
-    }
     pokemons: { // args
-      limit: number | null; // Int
+      cursor?: string | null; // String
+      pageSize?: number | null; // Int
     }
   }
 }

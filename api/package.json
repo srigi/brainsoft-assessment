@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "ts-node-dev ./src/server.ts",
     "db:migrations:generate": "drizzle-kit generate:pg",
-    "db:migrations:push": "ts-node ./src/db-migrate.ts",
+    "db:migrations:push": "ts-node ./cli/db-migrate.ts",
+    "db:seed": "ts-node ./cli/db-seed.ts",
     "graphql:nexus:generate": "ts-node ./src/schema",
     "lint": "eslint 'src/**/*.{js,json,ts}'",
     "tsc": "tsc -noEmit"

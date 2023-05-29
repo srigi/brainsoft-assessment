@@ -5,22 +5,30 @@ import {
   pgTable,
   real,
   varchar,
+  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 
-export const pokemons = pgTable("pokemons", {
-  id: uuid("id")
-    .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  name: varchar("name").notNull(),
-  classification: varchar("classification").notNull(),
-  weight: jsonb("weight")
-    .notNull()
-    .default(sql`'{ "minimum":"1.0kg", "maximum": "2.0kg" }'::jsonb`),
-  height: jsonb("height")
-    .notNull()
-    .default(sql`'{ "minimum":"0.15m", "maximum": "0.25m" }'::jsonb`),
-  fleeRate: real("flee_rate").notNull(),
-  maxCP: integer("max_cp").notNull(),
-  maxHP: integer("max_hp").notNull(),
-});
+export const pokemons = pgTable(
+  "pokemons",
+  {
+    uuid: uuid("uuid")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    id: varchar("id").notNull(),
+    name: varchar("name").notNull(),
+    classification: varchar("classification").notNull(),
+    weight: jsonb("weight")
+      .notNull()
+      .$type<{ minimum: string; maximum: string }>(),
+    height: jsonb("height")
+      .notNull()
+      .$type<{ minimum: string; maximum: string }>(),
+    fleeRate: real("flee_rate").notNull(),
+    maxCP: integer("max_cp").notNull(),
+    maxHP: integer("max_hp").notNull(),
+  },
+  (table) => ({
+    id: uniqueIndex("uqindex_id").on(table.id),
+  })
+);
