@@ -94,6 +94,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     healthy: boolean | null; // Boolean
+    pokemon: NexusGenRootTypes['Pokemon'] | null; // Pokemon
     pokemons: NexusGenRootTypes['PokemonsList'] | null; // PokemonsList
   }
   Weight: { // field return type
@@ -128,6 +129,7 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     healthy: 'Boolean'
+    pokemon: 'Pokemon'
     pokemons: 'PokemonsList'
   }
   Weight: { // field return type name
@@ -138,6 +140,10 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Query: {
+    pokemon: { // args
+      id?: string | null; // String
+      name?: string | null; // String
+    }
     pokemons: { // args
       cursor?: string | null; // String
       pageSize?: number | null; // Int

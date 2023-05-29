@@ -1,4 +1,4 @@
-import { asc, gte, sql } from "drizzle-orm";
+import { asc, like, gte, sql, and, eq } from "drizzle-orm";
 import {
   queryType,
   intArg,
@@ -61,6 +61,28 @@ export const schema = makeSchema({
       definition(t) {
         t.boolean("healthy", {
           resolve: () => true,
+        });
+
+        t.field("pokemon", {
+          type: PokemonType,
+          args: {
+            id: stringArg(),
+            name: stringArg(),
+          },
+          resolve: async (_parent, { id, name }, { db }) => {
+            const foo = await db
+              .select()
+              .from(pokemons)
+              .where(
+                and(
+                  id != null ? eq(pokemons.id, id) : undefined,
+                  name != null ? like(pokemons.name, name) : undefined
+                )
+              )
+              .limit(1);
+
+            return foo[0];
+          },
         });
 
         t.field("pokemons", {

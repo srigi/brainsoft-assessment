@@ -31,6 +31,7 @@ type PokemonsList {
 
 type Query {
   healthy: Boolean
+  pokemon(id: String, name: String): Pokemon
   pokemons(cursor: String, pageSize: Int): PokemonsList
 }
 
