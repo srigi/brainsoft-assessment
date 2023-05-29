@@ -1,8 +1,10 @@
 {
   "name": "api",
   "scripts": {
-    "generate:nexus": "ts-node ./src/schema",
     "dev": "ts-node-dev ./src/server.ts",
+    "db:migrations:generate": "drizzle-kit generate:pg",
+    "db:migrations:push": "ts-node ./src/db-migrate.ts",
+    "graphql:nexus:generate": "ts-node ./src/schema",
     "lint": "eslint 'src/**/*.{js,json,ts}'",
     "tsc": "tsc -noEmit"
   },
