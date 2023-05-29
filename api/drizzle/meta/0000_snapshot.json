@@ -1,0 +1,75 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "c5a05d5b-c894-4642-ab2f-7894b14c1285",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "pokemons": {
+      "name": "pokemons",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "classification": {
+          "name": "classification",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weight": {
+          "name": "weight",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{ \"minimum\":\"1.0kg\", \"maximum\": \"2.0kg\" }'::jsonb"
+        },
+        "height": {
+          "name": "height",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{ \"minimum\":\"0.15m\", \"maximum\": \"0.25m\" }'::jsonb"
+        },
+        "flee_rate": {
+          "name": "flee_rate",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_cp": {
+          "name": "max_cp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_hp": {
+          "name": "max_hp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

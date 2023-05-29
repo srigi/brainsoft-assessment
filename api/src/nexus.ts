@@ -28,6 +28,14 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Pokemon: { // root type
+    classification: string; // String!
+    fleeRate: number; // Float!
+    id: string; // String!
+    maxCP: number; // Float!
+    maxHP: number; // Float!
+    name: string; // String!
+  }
   Query: {};
 }
 
@@ -42,14 +50,34 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Pokemon: { // field return type
+    classification: string; // String!
+    fleeRate: number; // Float!
+    id: string; // String!
+    maxCP: number; // Float!
+    maxHP: number; // Float!
+    name: string; // String!
+  }
   Query: { // field return type
     add: number | null; // Int
+    healthy: boolean | null; // Boolean
+    pokemons: Array<NexusGenRootTypes['Pokemon'] | null> | null; // [Pokemon]
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Pokemon: { // field return type name
+    classification: 'String'
+    fleeRate: 'Float'
+    id: 'String'
+    maxCP: 'Float'
+    maxHP: 'Float'
+    name: 'String'
+  }
   Query: { // field return type name
     add: 'Int'
+    healthy: 'Boolean'
+    pokemons: 'Pokemon'
   }
 }
 
@@ -58,6 +86,9 @@ export interface NexusGenArgTypes {
     add: { // args
       x: number; // Int!
       y: number; // Int!
+    }
+    pokemons: { // args
+      limit: number | null; // Int
     }
   }
 }

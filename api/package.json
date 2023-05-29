@@ -1,18 +1,22 @@
 {
   "name": "api",
   "scripts": {
-    "dev": "ts-node-dev ./index.ts",
-    "generate:nexus": "ts-node ./src/schema",
+    "dev": "ts-node-dev ./src/server.ts",
+    "db:migrations:generate": "drizzle-kit generate:pg",
+    "db:migrations:push": "ts-node ./src/db-migrate.ts",
+    "graphql:nexus:generate": "ts-node ./src/schema",
     "lint": "eslint 'src/**/*.{js,json,ts}'",
     "tsc": "tsc -noEmit"
   },
   "dependencies": {
-    "dotenv": "~16.0",
+    "drizzle-orm": "^0.26",
     "fastify": "~4.17",
-    "mercurius": "~13.0"
+    "mercurius": "~13.0",
+    "postgres": "~3.3"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "drizzle-kit": "^0.18",
     "graphql": "~16.6",
     "graphql-scalars": "~1.22",
     "nexus": "~1.3",

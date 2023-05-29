@@ -5,6 +5,7 @@ import fastify, {
 } from "fastify";
 import mercurius from "mercurius";
 
+import { db } from "./db";
 import { schema } from "./schema";
 
 function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
@@ -14,6 +15,7 @@ function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
     return "pong!";
   });
   server.register(mercurius, {
+    context: (request, reply) => ({ db, request, reply }),
     graphiql: process.env.NODE_ENV !== "production",
     path: "/graphql",
     schema,
@@ -22,7 +24,7 @@ function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
   return server;
 }
 
-export async function startServer() {
+(async () => {
   const server = createServer({
     logger: true,
   });
@@ -35,4 +37,4 @@ export async function startServer() {
     server.log.error(err);
     process.exit(1);
   }
-}
+})();
