@@ -1,0 +1,12 @@
+{
+  "name": "@srigi/brainsoft-assessment",
+  "author": "Igor Hlina <srigi@srigi.dev>",
+  "private": true,
+  "packageManager": "yarn@3.5.1",
+  "scripts": {
+    "api": "yarn workspace api"
+  },
+  "workspaces": [
+    "api"
+  ]
+}

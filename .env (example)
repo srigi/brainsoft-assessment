@@ -1,0 +1,3 @@
+DATABASE_URL=
+WEBSITE_NAME="Brainsoft assessment"
+WEBSITE_URL=http://localhost:3000
