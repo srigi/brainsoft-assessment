@@ -1,17 +1,7 @@
 import fastify, { FastifyInstance, FastifyServerOptions } from "fastify";
 import mercurius from "mercurius";
 
-const schema = `
-  type Query {
-    add(x: Int, y: Int): Int
-  }
-`;
-
-const resolvers = {
-  Query: {
-    add: async (_: unknown, { x, y }: { x: number; y: number }) => x + y,
-  },
-};
+import { schema } from "./schema";
 
 function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
   const server = fastify(opts);
@@ -22,7 +12,6 @@ function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
   server.register(mercurius, {
     graphiql: process.env.NODE_ENV !== "production",
     path: "/graphql",
-    resolvers,
     schema,
   });
 
