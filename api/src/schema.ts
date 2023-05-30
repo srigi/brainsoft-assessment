@@ -1,4 +1,4 @@
-import { asc, like, gte, sql, and, eq } from "drizzle-orm";
+import { asc, like, sql, and, eq, gte } from "drizzle-orm";
 import {
   queryType,
   intArg,
@@ -62,31 +62,32 @@ export const schema = makeSchema({
   types: [
     queryType({
       definition(t) {
-        t.boolean("healthy", {
+        t.nonNull.boolean("healthy", {
           resolve: () => true,
         });
 
-        t.field("pokemon", {
+        t.nullable.field("pokemon", {
           type: PokemonType,
           args: {
-            id: stringArg(),
-            name: stringArg(),
+            findById: stringArg(),
+            findByName: stringArg(),
           },
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          resolve: async (_parent, { id, name }, { db }) => {
+          resolve: async (_parent, { findById, findByName }, { db }) => {
             const pokemon = await db.query.pokemons.findFirst({
-              where: (p: typeof pokemons) =>
-                and(
-                  id != null ? eq(p.id, id) : undefined,
-                  name != null ? like(p.name, name) : undefined
-                ),
               with: {
                 pokemonsToTypes: {
                   columns: { pokemonUuid: false, typeUuid: false },
                   with: { type: { columns: { name: true } } },
                 },
               },
+              where: and(
+                findById != null ? eq(pokemons.id, findById) : undefined,
+                findByName != null
+                  ? like(pokemons.name, `${findByName}%`)
+                  : undefined
+              ),
             });
 
             if (pokemon != null) {
@@ -119,10 +120,17 @@ export const schema = makeSchema({
             },
           }),
           args: {
+            findByName: stringArg(),
             cursor: stringArg(),
             pageSize: intArg(),
           },
-          resolve: async (_parent, { cursor, pageSize = 10 }, { db }) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          resolve: async (
+            _parent,
+            { findByName, cursor, pageSize = 10 },
+            { db }
+          ) => {
             if (pageSize == null) {
               return {
                 edges: [],
@@ -131,28 +139,49 @@ export const schema = makeSchema({
               };
             }
 
+            const criteria = and(
+              findByName != null
+                ? like(pokemons.name, `${findByName}%`)
+                : undefined
+            );
             const { totalCount } = (
               await db
                 .select({ totalCount: sql<number>`count(*)` })
                 .from(pokemons)
+                .where(criteria)
             )[0];
-            const items = await db
-              .select()
-              .from(pokemons)
-              .where(cursor != null ? gte(pokemons.id, cursor) : undefined)
-              .orderBy(asc(pokemons.id))
-              .limit(pageSize + 1);
+            const items = await db.query.pokemons.findMany({
+              with: {
+                pokemonsToTypes: {
+                  columns: { pokemonUuid: false, typeUuid: false },
+                  with: { type: { columns: { name: true } } },
+                },
+              },
+              where: and(
+                criteria,
+                cursor != null ? gte(pokemons.id, cursor) : undefined
+              ),
+              orderBy: asc(pokemons.id),
+              limit: pageSize + 1,
+            });
 
             let nextCursor: string | undefined = undefined;
             if (items.length > pageSize) {
               // Remove the last item and use it as next cursor
-
               const lastItem = items.pop()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
               nextCursor = lastItem.id;
             }
 
             return {
-              edges: items,
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              edges: items.map((i) => ({
+                ...i,
+                types: i.pokemonsToTypes.map(
+                  (ptt: unknown) =>
+                    (ptt as unknown as { type: { name: string } }).type.name
+                ),
+              })),
               pageInfo: {
                 nextCursor,
                 pageSize,
