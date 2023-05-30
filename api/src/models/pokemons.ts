@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  boolean,
   integer,
   jsonb,
   pgTable,
@@ -29,9 +30,11 @@ export const pokemons = pgTable(
     fleeRate: real("flee_rate").notNull(),
     maxCP: integer("max_cp").notNull(),
     maxHP: integer("max_hp").notNull(),
+    favourite: boolean("favourite"),
   },
   (table) => ({
     id: uniqueIndex("uqindex_id").on(table.id),
+    favourite: uniqueIndex("index_favourite").on(table.favourite),
   })
 );
 

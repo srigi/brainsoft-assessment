@@ -32,8 +32,10 @@ export interface NexusGenObjects {
     maximum?: string | null; // String
     minimum?: string | null; // String
   }
+  Mutation: {};
   Pokemon: { // root type
     classification: string; // String!
+    favourite?: boolean | null; // Boolean
     fleeRate: number; // Float!
     height: NexusGenRootTypes['Height']; // Height!
     id: string; // String!
@@ -86,8 +88,12 @@ export interface NexusGenFieldTypes {
     maximum: string | null; // String
     minimum: string | null; // String
   }
+  Mutation: { // field return type
+    setFavourite: NexusGenRootTypes['Pokemon'] | null; // Pokemon
+  }
   Pokemon: { // field return type
     classification: string; // String!
+    favourite: boolean | null; // Boolean
     fleeRate: number; // Float!
     height: NexusGenRootTypes['Height']; // Height!
     id: string; // String!
@@ -135,8 +141,12 @@ export interface NexusGenFieldTypeNames {
     maximum: 'String'
     minimum: 'String'
   }
+  Mutation: { // field return type name
+    setFavourite: 'Pokemon'
+  }
   Pokemon: { // field return type name
     classification: 'String'
+    favourite: 'Boolean'
     fleeRate: 'Float'
     height: 'Height'
     id: 'String'
@@ -180,6 +190,12 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    setFavourite: { // args
+      id: string; // String!
+      value: boolean; // Boolean!
+    }
+  }
   Query: {
     pokemon: { // args
       findById?: string | null; // String
