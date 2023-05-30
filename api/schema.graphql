@@ -24,6 +24,21 @@ type PokemonListPageInfo {
   pageSize: Int
 }
 
+type PokemonType {
+  name: String!
+}
+
+type PokemonTypesList {
+  edges: [PokemonType]
+  pageInfo: PokemonTypesListPageInfo
+  totalCount: Int
+}
+
+type PokemonTypesListPageInfo {
+  nextCursor: String
+  pageSize: Int
+}
+
 type PokemonsList {
   edges: [Pokemon]
   pageInfo: PokemonListPageInfo
@@ -33,6 +48,7 @@ type PokemonsList {
 type Query {
   healthy: Boolean!
   pokemon(findById: String, findByName: String): Pokemon
+  pokemonTypes(cursor: String, findByName: String, pageSize: Int): PokemonTypesList
   pokemons(cursor: String, findByName: String, pageSize: Int): PokemonsList
 }
 

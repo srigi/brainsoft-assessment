@@ -9,7 +9,7 @@ import {
   stringArg,
 } from "nexus";
 
-import { pokemons } from "./models";
+import { pokemons, types } from "./models";
 
 const PokemonType = objectType({
   name: "Pokemon",
@@ -45,6 +45,13 @@ const PokemonType = objectType({
     t.field("fleeRate", { type: nonNull("Float") });
     t.field("maxCP", { type: nonNull("Float") });
     t.field("maxHP", { type: nonNull("Float") });
+  },
+});
+
+const PokemonTypeType = objectType({
+  name: "PokemonType",
+  definition(t) {
+    t.field("name", { type: nonNull("String") });
   },
 });
 
@@ -190,9 +197,86 @@ export const schema = makeSchema({
             };
           },
         });
+
+        t.field("pokemonTypes", {
+          type: objectType({
+            name: "PokemonTypesList",
+            definition: (t) => {
+              t.field("edges", { type: list(PokemonTypeType) });
+              t.field("pageInfo", {
+                type: objectType({
+                  name: "PokemonTypesListPageInfo",
+                  definition(t) {
+                    t.string("nextCursor");
+                    t.int("pageSize");
+                  },
+                }),
+              });
+              t.int("totalCount");
+            },
+          }),
+          args: {
+            findByName: stringArg(),
+            cursor: stringArg(),
+            pageSize: intArg(),
+          },
+          resolve: async (
+            _parent,
+            { findByName, cursor, pageSize = 10 },
+            { db }
+          ) => {
+            if (pageSize == null) {
+              return {
+                edges: [],
+                pageInfo: { nextCursor: null, pageSize },
+                totalCount: 0,
+              };
+            }
+
+            const criteria = and(
+              findByName != null
+                ? like(types.name, `${findByName}%`)
+                : undefined
+            );
+            const { totalCount } = (
+              await db
+                .select({ totalCount: sql<number>`count(*)` })
+                .from(types)
+                .where(criteria)
+            )[0];
+            const items = await db
+              .select()
+              .from(types)
+              .where(
+                and(
+                  criteria,
+                  cursor != null ? gte(pokemons.id, cursor) : undefined
+                )
+              )
+              .orderBy(asc(types.name))
+              .limit(pageSize + 1);
+
+            let nextCursor: string | undefined = undefined;
+            if (items.length > pageSize) {
+              // Remove the last item and use it as next cursor
+              const lastItem = items.pop()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+              nextCursor = lastItem.name;
+            }
+
+            return {
+              edges: items,
+              pageInfo: {
+                nextCursor,
+                pageSize,
+              },
+              totalCount,
+            };
+          },
+        });
       },
     }),
 
     PokemonType,
+    PokemonTypeType,
   ],
 });

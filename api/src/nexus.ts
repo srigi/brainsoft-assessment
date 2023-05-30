@@ -47,6 +47,18 @@ export interface NexusGenObjects {
     nextCursor?: string | null; // String
     pageSize?: number | null; // Int
   }
+  PokemonType: { // root type
+    name: string; // String!
+  }
+  PokemonTypesList: { // root type
+    edges?: Array<NexusGenRootTypes['PokemonType'] | null> | null; // [PokemonType]
+    pageInfo?: NexusGenRootTypes['PokemonTypesListPageInfo'] | null; // PokemonTypesListPageInfo
+    totalCount?: number | null; // Int
+  }
+  PokemonTypesListPageInfo: { // root type
+    nextCursor?: string | null; // String
+    pageSize?: number | null; // Int
+  }
   PokemonsList: { // root type
     edges?: Array<NexusGenRootTypes['Pokemon'] | null> | null; // [Pokemon]
     pageInfo?: NexusGenRootTypes['PokemonListPageInfo'] | null; // PokemonListPageInfo
@@ -89,6 +101,18 @@ export interface NexusGenFieldTypes {
     nextCursor: string | null; // String
     pageSize: number | null; // Int
   }
+  PokemonType: { // field return type
+    name: string; // String!
+  }
+  PokemonTypesList: { // field return type
+    edges: Array<NexusGenRootTypes['PokemonType'] | null> | null; // [PokemonType]
+    pageInfo: NexusGenRootTypes['PokemonTypesListPageInfo'] | null; // PokemonTypesListPageInfo
+    totalCount: number | null; // Int
+  }
+  PokemonTypesListPageInfo: { // field return type
+    nextCursor: string | null; // String
+    pageSize: number | null; // Int
+  }
   PokemonsList: { // field return type
     edges: Array<NexusGenRootTypes['Pokemon'] | null> | null; // [Pokemon]
     pageInfo: NexusGenRootTypes['PokemonListPageInfo'] | null; // PokemonListPageInfo
@@ -97,6 +121,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     healthy: boolean; // Boolean!
     pokemon: NexusGenRootTypes['Pokemon'] | null; // Pokemon
+    pokemonTypes: NexusGenRootTypes['PokemonTypesList'] | null; // PokemonTypesList
     pokemons: NexusGenRootTypes['PokemonsList'] | null; // PokemonsList
   }
   Weight: { // field return type
@@ -125,6 +150,18 @@ export interface NexusGenFieldTypeNames {
     nextCursor: 'String'
     pageSize: 'Int'
   }
+  PokemonType: { // field return type name
+    name: 'String'
+  }
+  PokemonTypesList: { // field return type name
+    edges: 'PokemonType'
+    pageInfo: 'PokemonTypesListPageInfo'
+    totalCount: 'Int'
+  }
+  PokemonTypesListPageInfo: { // field return type name
+    nextCursor: 'String'
+    pageSize: 'Int'
+  }
   PokemonsList: { // field return type name
     edges: 'Pokemon'
     pageInfo: 'PokemonListPageInfo'
@@ -133,6 +170,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     healthy: 'Boolean'
     pokemon: 'Pokemon'
+    pokemonTypes: 'PokemonTypesList'
     pokemons: 'PokemonsList'
   }
   Weight: { // field return type name
@@ -146,6 +184,11 @@ export interface NexusGenArgTypes {
     pokemon: { // args
       findById?: string | null; // String
       findByName?: string | null; // String
+    }
+    pokemonTypes: { // args
+      cursor?: string | null; // String
+      findByName?: string | null; // String
+      pageSize?: number | null; // Int
     }
     pokemons: { // args
       cursor?: string | null; // String
