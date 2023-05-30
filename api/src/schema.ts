@@ -253,7 +253,7 @@ export const schema = makeSchema({
               .where(
                 and(
                   criteria,
-                  cursor != null ? gte(pokemons.id, cursor) : undefined
+                  cursor != null ? gte(types.name, cursor) : undefined
                 )
               )
               .orderBy(asc(types.name))
