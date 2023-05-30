@@ -624,7 +624,6 @@ __metadata:
     drizzle-orm: ^0.26
     fastify: ~4.17
     graphql: ~16.6
-    graphql-scalars: ~1.22
     mercurius: ~13.0
     nexus: ~1.3
     postgres: ~3.3
@@ -2026,17 +2025,6 @@ __metadata:
   peerDependencies:
     graphql: ">=15"
   checksum: 460f6ab75f490f28b226640d5d037f02f0955b6f0a9c31a3addcc89f8547a1469578a360c9cd8e7be322e96b720b8f1af4b5a9ce920deec835b305bacd63a90a
-  languageName: node
-  linkType: hard
-
-"graphql-scalars@npm:~1.22":
-  version: 1.22.1
-  resolution: "graphql-scalars@npm:1.22.1"
-  dependencies:
-    tslib: ^2.5.0
-  peerDependencies:
-    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-  checksum: 90de9e68fa659920df47ce3add146d97a630987903101e7ec545d30e0a14a1b831ea73e13556c68f6ddbc03fdace7a63d3f482a01fa6b66cd083c32372a612dd
   languageName: node
   linkType: hard
 
@@ -3594,7 +3582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3, tslib@npm:^2.5.0":
+"tslib@npm:^2.0.3":
   version: 2.5.2
   resolution: "tslib@npm:2.5.2"
   checksum: 4d3c1e238b94127ed0e88aa0380db3c2ddae581dc0f4bae5a982345e9f50ee5eda90835b8bfba99b02df10a5734470be197158c36f9129ac49fdc14a6a9da222

@@ -876,7 +876,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["drizzle-orm", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.26.1"],\
             ["fastify", "npm:4.17.0"],\
             ["graphql", "npm:16.6.0"],\
-            ["graphql-scalars", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.22.1"],\
             ["mercurius", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:13.0.0"],\
             ["nexus", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.3.0"],\
             ["postgres", "npm:3.3.4"],\
@@ -2498,29 +2497,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lodash.memoize", "npm:4.1.2"],\
             ["lodash.merge", "npm:4.6.2"],\
             ["lodash.mergewith", "npm:4.6.2"]\
-          ],\
-          "packagePeers": [\
-            "@types/graphql",\
-            "graphql"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["graphql-scalars", [\
-        ["npm:1.22.1", {\
-          "packageLocation": "./.yarn/cache/graphql-scalars-npm-1.22.1-e3b3c68f46-90de9e68fa.zip/node_modules/graphql-scalars/",\
-          "packageDependencies": [\
-            ["graphql-scalars", "npm:1.22.1"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.22.1", {\
-          "packageLocation": "./.yarn/__virtual__/graphql-scalars-virtual-649a02a137/0/cache/graphql-scalars-npm-1.22.1-e3b3c68f46-90de9e68fa.zip/node_modules/graphql-scalars/",\
-          "packageDependencies": [\
-            ["graphql-scalars", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.22.1"],\
-            ["@types/graphql", null],\
-            ["graphql", "npm:16.6.0"],\
-            ["tslib", "npm:2.5.2"]\
           ],\
           "packagePeers": [\
             "@types/graphql",\
