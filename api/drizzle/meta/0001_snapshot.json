@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "42409ffa-de79-4e84-9062-7fe3909c0999",
+  "id": "55d02d4f-af8c-4bd3-9933-7ed0c1fa5ebf",
   "prevId": "bb650649-842b-451f-851f-a7b21e1d27bb",
   "tables": {
     "pokemons": {
@@ -80,14 +80,14 @@
       "name": "pokemonsToTypes",
       "schema": "",
       "columns": {
-        "pokemon_id": {
-          "name": "pokemon_id",
+        "pokemon_uuid": {
+          "name": "pokemon_uuid",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
-        "type_id": {
-          "name": "type_id",
+        "type_uuid": {
+          "name": "type_uuid",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -97,25 +97,25 @@
         "index_pokemon_id": {
           "name": "index_pokemon_id",
           "columns": [
-            "pokemon_id"
+            "pokemon_uuid"
           ],
           "isUnique": false
         },
         "index_type_id": {
           "name": "index_type_id",
           "columns": [
-            "type_id"
+            "type_uuid"
           ],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "pokemonsToTypes_pokemon_id_pokemons_uuid_fk": {
-          "name": "pokemonsToTypes_pokemon_id_pokemons_uuid_fk",
+        "pokemonsToTypes_pokemon_uuid_pokemons_uuid_fk": {
+          "name": "pokemonsToTypes_pokemon_uuid_pokemons_uuid_fk",
           "tableFrom": "pokemonsToTypes",
           "tableTo": "pokemons",
           "columnsFrom": [
-            "pokemon_id"
+            "pokemon_uuid"
           ],
           "columnsTo": [
             "uuid"
@@ -123,12 +123,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "pokemonsToTypes_type_id_types_uuid_fk": {
-          "name": "pokemonsToTypes_type_id_types_uuid_fk",
+        "pokemonsToTypes_type_uuid_types_uuid_fk": {
+          "name": "pokemonsToTypes_type_uuid_types_uuid_fk",
           "tableFrom": "pokemonsToTypes",
           "tableTo": "types",
           "columnsFrom": [
-            "type_id"
+            "type_uuid"
           ],
           "columnsTo": [
             "uuid"

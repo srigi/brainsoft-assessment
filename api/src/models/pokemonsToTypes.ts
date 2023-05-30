@@ -6,15 +6,15 @@ import { types } from "./types";
 export const pokemonsToTypes = pgTable(
   "pokemonsToTypes",
   {
-    pokemonId: uuid("pokemon_id")
+    pokemonUuid: uuid("pokemon_uuid")
       .notNull()
       .references(() => pokemons.uuid),
-    typeId: uuid("type_id")
+    typeUuid: uuid("type_uuid")
       .notNull()
       .references(() => types.uuid),
   },
   (table) => ({
-    pokemonIdIdx: index("index_pokemon_id").on(table.pokemonId),
-    typeIdIdx: index("index_type_id").on(table.typeId),
+    pokemonIdIdx: index("index_pokemon_id").on(table.pokemonUuid),
+    typeIdIdx: index("index_type_id").on(table.typeUuid),
   })
 );

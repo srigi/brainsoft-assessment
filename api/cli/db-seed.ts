@@ -46,12 +46,12 @@ import { pokemons, pokemonsToTypes, types } from "../src/models";
 
   // connect Pokemons and Pokemons' Types
   const pokemonToTypesValues = pokemonsData.reduce<
-    Array<{ pokemonId: string; typeId: string }>
+    Array<{ pokemonUuid: string; typeUuid: string }>
   >((memo, pd, idx) => {
     const pivotTableData = pd.types.map((pt) => {
       return {
-        pokemonId: pokemonsUuids[idx],
-        typeId: pokemonTypesUuids.get(pt)!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        pokemonUuid: pokemonsUuids[idx],
+        typeUuid: pokemonTypesUuids.get(pt)!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
       };
     });
 
