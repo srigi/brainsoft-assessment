@@ -1,3 +1,3 @@
-export { pokemons } from "./pokemons";
-export { types } from "./types";
-export { pokemonsToTypes } from "./pokemonsToTypes";
+export * from "./pokemons";
+export * from "./types";
+export * from "./pokemonsToTypes";

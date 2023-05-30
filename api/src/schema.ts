@@ -17,6 +17,9 @@ const PokemonType = objectType({
     t.field("id", { type: nonNull("String") });
     t.field("name", { type: nonNull("String") });
     t.field("classification", { type: nonNull("String") });
+    t.field("types", {
+      type: list("String"),
+    });
     t.field("height", {
       type: nonNull(
         objectType({
@@ -69,19 +72,32 @@ export const schema = makeSchema({
             id: stringArg(),
             name: stringArg(),
           },
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           resolve: async (_parent, { id, name }, { db }) => {
-            const foo = await db
-              .select()
-              .from(pokemons)
-              .where(
+            const pokemon = await db.query.pokemons.findFirst({
+              where: (p: typeof pokemons) =>
                 and(
-                  id != null ? eq(pokemons.id, id) : undefined,
-                  name != null ? like(pokemons.name, name) : undefined
-                )
-              )
-              .limit(1);
+                  id != null ? eq(p.id, id) : undefined,
+                  name != null ? like(p.name, name) : undefined
+                ),
+              with: {
+                pokemonsToTypes: {
+                  columns: { pokemonUuid: false, typeUuid: false },
+                  with: { type: { columns: { name: true } } },
+                },
+              },
+            });
 
-            return foo[0];
+            if (pokemon != null) {
+              return {
+                ...pokemon,
+                types: pokemon.pokemonsToTypes.map(
+                  (ptt: unknown) =>
+                    (ptt as unknown as { type: { name: string } }).type.name
+                ),
+              };
+            }
           },
         });
 

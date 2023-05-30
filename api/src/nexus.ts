@@ -40,6 +40,7 @@ export interface NexusGenObjects {
     maxCP: number; // Float!
     maxHP: number; // Float!
     name: string; // String!
+    types?: Array<string | null> | null; // [String]
     weight: NexusGenRootTypes['Weight']; // Weight!
   }
   PokemonListPageInfo: { // root type
@@ -81,6 +82,7 @@ export interface NexusGenFieldTypes {
     maxCP: number; // Float!
     maxHP: number; // Float!
     name: string; // String!
+    types: Array<string | null> | null; // [String]
     weight: NexusGenRootTypes['Weight']; // Weight!
   }
   PokemonListPageInfo: { // field return type
@@ -116,6 +118,7 @@ export interface NexusGenFieldTypeNames {
     maxCP: 'Float'
     maxHP: 'Float'
     name: 'String'
+    types: 'String'
     weight: 'Weight'
   }
   PokemonListPageInfo: { // field return type name

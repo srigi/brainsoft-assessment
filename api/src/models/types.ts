@@ -1,5 +1,7 @@
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { pgTable, varchar, uniqueIndex, uuid } from "drizzle-orm/pg-core";
+
+import { pokemonsToTypes } from "./pokemonsToTypes";
 
 export const types = pgTable(
   "types",
@@ -13,3 +15,7 @@ export const types = pgTable(
     id: uniqueIndex("uqindex_name").on(table.name),
   })
 );
+
+export const typesRelations = relations(types, ({ many }) => ({
+  pokemonsToTypes: many(pokemonsToTypes),
+}));

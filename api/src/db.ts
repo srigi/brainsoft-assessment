@@ -1,6 +1,8 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
+import * as schema from "./models";
+
 if (process.env.DATABASE_URL == null) {
   throw "DATABASE_URL environment variable must be defined!";
 }
@@ -12,6 +14,7 @@ export const db = drizzle(
     }),
   }),
   {
+    schema,
     logger: true,
   }
 );
