@@ -7,8 +7,13 @@ type Height {
   minimum: String
 }
 
+type Mutation {
+  setFavourite(id: String!, value: Boolean!): Pokemon
+}
+
 type Pokemon {
   classification: String!
+  favourite: Boolean
   fleeRate: Float!
   height: Height!
   id: String!

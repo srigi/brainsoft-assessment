@@ -1,11 +1,13 @@
 import { asc, like, sql, and, eq, gte } from "drizzle-orm";
 import {
-  queryType,
+  booleanArg,
   intArg,
+  list,
   makeSchema,
+  mutationType,
   nonNull,
   objectType,
-  list,
+  queryType,
   stringArg,
 } from "nexus";
 
@@ -14,13 +16,13 @@ import { pokemons, types } from "./models";
 const PokemonType = objectType({
   name: "Pokemon",
   definition(t) {
-    t.field("id", { type: nonNull("String") });
-    t.field("name", { type: nonNull("String") });
-    t.field("classification", { type: nonNull("String") });
+    t.nonNull.string("id");
+    t.nonNull.string("name");
+    t.nonNull.string("classification");
     t.field("types", {
       type: list("String"),
     });
-    t.field("height", {
+    t.nonNull.field("height", {
       type: nonNull(
         objectType({
           name: "Height",
@@ -31,7 +33,7 @@ const PokemonType = objectType({
         })
       ),
     });
-    t.field("weight", {
+    t.nonNull.field("weight", {
       type: nonNull(
         objectType({
           name: "Weight",
@@ -42,16 +44,17 @@ const PokemonType = objectType({
         })
       ),
     });
-    t.field("fleeRate", { type: nonNull("Float") });
-    t.field("maxCP", { type: nonNull("Float") });
-    t.field("maxHP", { type: nonNull("Float") });
+    t.nonNull.float("fleeRate");
+    t.nonNull.float("maxCP");
+    t.nonNull.float("maxHP");
+    t.boolean("favourite");
   },
 });
 
 const PokemonTypeType = objectType({
   name: "PokemonType",
   definition(t) {
-    t.field("name", { type: nonNull("String") });
+    t.nonNull.string("name");
   },
 });
 
@@ -270,6 +273,46 @@ export const schema = makeSchema({
                 pageSize,
               },
               totalCount,
+            };
+          },
+        });
+      },
+    }),
+
+    mutationType({
+      definition(t) {
+        t.field("setFavourite", {
+          type: PokemonType,
+          args: {
+            id: nonNull(stringArg()),
+            value: nonNull(booleanArg()),
+          },
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          resolve: async (_parent, { id, value }, { db }) => {
+            const { uuid } = (
+              await db
+                .update(pokemons)
+                .set({ favourite: value })
+                .where(eq(pokemons.id, id))
+                .returning({ uuid: pokemons.uuid })
+            )[0];
+            const pokemon = await db.query.pokemons.findFirst({
+              with: {
+                pokemonsToTypes: {
+                  columns: { pokemonUuid: false, typeUuid: false },
+                  with: { type: { columns: { name: true } } },
+                },
+              },
+              where: eq(pokemons.uuid, uuid),
+            });
+
+            return {
+              ...pokemon,
+              types: pokemon?.pokemonsToTypes.map(
+                (ptt: unknown) =>
+                  (ptt as unknown as { type: { name: string } }).type.name
+              ),
             };
           },
         });
