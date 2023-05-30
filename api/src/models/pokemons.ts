@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import {
   boolean,
+  index,
   integer,
   jsonb,
   pgTable,
@@ -34,7 +35,7 @@ export const pokemons = pgTable(
   },
   (table) => ({
     id: uniqueIndex("uqindex_id").on(table.id),
-    favourite: uniqueIndex("index_favourite").on(table.favourite),
+    favourite: index("index_favourite").on(table.favourite),
   })
 );
 

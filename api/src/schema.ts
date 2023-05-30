@@ -131,6 +131,7 @@ export const schema = makeSchema({
           }),
           args: {
             findByName: stringArg(),
+            isFavourited: booleanArg(),
             cursor: stringArg(),
             pageSize: intArg(),
           },
@@ -138,7 +139,7 @@ export const schema = makeSchema({
           // @ts-ignore
           resolve: async (
             _parent,
-            { findByName, cursor, pageSize = 10 },
+            { findByName, isFavourited, cursor, pageSize = 10 },
             { db }
           ) => {
             if (pageSize == null) {
@@ -152,7 +153,8 @@ export const schema = makeSchema({
             const criteria = and(
               findByName != null
                 ? like(pokemons.name, `${findByName}%`)
-                : undefined
+                : undefined,
+              isFavourited != null ? eq(pokemons.favourite, true) : undefined
             );
             const { totalCount } = (
               await db

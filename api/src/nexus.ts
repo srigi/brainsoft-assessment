@@ -209,6 +209,7 @@ export interface NexusGenArgTypes {
     pokemons: { // args
       cursor?: string | null; // String
       findByName?: string | null; // String
+      isFavourited?: boolean | null; // Boolean
       pageSize?: number | null; // Int
     }
   }

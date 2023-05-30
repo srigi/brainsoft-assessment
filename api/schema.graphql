@@ -54,7 +54,7 @@ type Query {
   healthy: Boolean!
   pokemon(findById: String, findByName: String): Pokemon
   pokemonTypes(cursor: String, findByName: String, pageSize: Int): PokemonTypesList
-  pokemons(cursor: String, findByName: String, pageSize: Int): PokemonsList
+  pokemons(cursor: String, findByName: String, isFavourited: Boolean, pageSize: Int): PokemonsList
 }
 
 type Weight {

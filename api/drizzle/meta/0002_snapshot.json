@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "bc928eb7-8480-4885-924e-7dfc7f9182ff",
+  "id": "c2163fef-49d3-4cb9-8e43-0d4964dde5a0",
   "prevId": "55d02d4f-af8c-4bd3-9933-7ed0c1fa5ebf",
   "tables": {
     "pokemons": {
@@ -83,7 +83,7 @@
           "columns": [
             "favourite"
           ],
-          "isUnique": true
+          "isUnique": false
         }
       },
       "foreignKeys": {},
