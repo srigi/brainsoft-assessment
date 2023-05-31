@@ -6,10 +6,12 @@
   "scripts": {
     "api": "yarn workspace api",
     "lint": "yarn workspaces foreach run lint",
-    "tsc": "yarn workspaces foreach run tsc"
+    "tsc": "yarn workspaces foreach run tsc",
+    "web": "yarn workspace web"
   },
   "workspaces": [
-    "api"
+    "api",
+    "web"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "~5.59",
