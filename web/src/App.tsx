@@ -1,35 +1,40 @@
-import { useState } from "react";
+import SearchField from "./components/SearchField";
+import Switch from "./components/Switch";
 
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./public/vite.svg";
-import "./App.css";
+import { ReactComponent as ListIcon } from "./assets/list.svg";
+import { ReactComponent as GridIcon } from "./assets/grid.svg";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="container flex flex-col gap-4">
+      <Switch />
+
+      <div className="flex gap-4">
+        <div className="flex-1">
+          <SearchField />
+        </div>
+
+        <button className="text-emerald-500">
+          <ListIcon className="h-8 w-8" />
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button className="text-emerald-500 opacity-20">
+          <GridIcon className="h-10 w-10" />
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      <div className="grid">
+        <div className="">
+          <img src="" alt="" />
+          <div className="">
+            <div>
+              <h4>pokemon.name</h4>
+              <h4>pokemon.type(s)</h4>
+            </div>
+            <button>favorite</button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
