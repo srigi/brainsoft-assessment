@@ -6,6 +6,7 @@ module.exports = {
     "prettier",
     "plugin:prettier/recommended", // display Prettier errors as ESLint errors
   ],
+  parser: "@typescript-eslint/parser",
   rules: {
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],

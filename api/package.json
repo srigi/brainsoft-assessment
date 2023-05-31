@@ -6,7 +6,7 @@
     "db:migrations:push": "ts-node ./cli/db-migrate.ts",
     "db:seed": "ts-node ./cli/db-seed.ts",
     "graphql:nexus:generate": "ts-node ./src/schema",
-    "lint": "eslint 'src/**/*.{js,json,ts}'",
+    "lint": "eslint 'src/**/*.{js,json,ts}' --max-warnings 3 --report-unused-disable-directives",
     "tsc": "tsc -noEmit"
   },
   "dependencies": {
