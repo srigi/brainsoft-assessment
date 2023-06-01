@@ -4,6 +4,7 @@ import { gql, useMutation } from "urql";
 import { NexusGenArgTypes, NexusGenObjects } from "api/src/nexus";
 import { ReactComponent as HeartIcon } from "../assets/heart.svg";
 import { ReactComponent as HeartFilledIcon } from "../assets/heart-filled.svg";
+import { MAX_CP, MAX_HP } from "../constants";
 
 interface Props {
   pokemon: NexusGenObjects["Pokemon"];
@@ -42,7 +43,7 @@ const PokemonDetailCard: FunctionComponent<Props> = ({ pokemon }) => {
   const [, favorite] = useMutation(pokemonFavoriteMutation);
 
   return (
-    <div className="border border-emerald-500 flex flex-col mx-40">
+    <div className="border border-emerald-500 flex flex-col">
       <div className="bg-white flex flex-col flex-1 justify-center p-4">
         <img
           src={`https://img.pokemondb.net/artwork/${pokemon.name
@@ -73,18 +74,32 @@ const PokemonDetailCard: FunctionComponent<Props> = ({ pokemon }) => {
         </button>
       </div>
 
-      <div className="border-b border-b-gray-300 flex flex-col p-4">
+      <div className="flex flex-col p-4">
         <div className="flex gap-4 items-center">
-          <div className="bg-sky-400 flex-1 h-2 rounded-full" />
+          <div className="flex-1">
+            <div
+              className="bg-sky-400 h-2 rounded-full"
+              style={{
+                width: `${Math.round((pokemon.maxCP / MAX_CP) * 100)}%`,
+              }}
+            />
+          </div>
           <div className="font-bold">CP: {pokemon.maxCP}</div>
         </div>
         <div className="flex gap-4 items-center">
-          <div className="bg-emerald-400 flex-1 h-2 rounded-full" />
+          <div className="flex-1">
+            <div
+              className="bg-emerald-400 h-2 rounded-full"
+              style={{
+                width: `${Math.round((pokemon.maxHP / MAX_HP) * 100)}%`,
+              }}
+            />
+          </div>
           <div className="font-bold">HP: {pokemon.maxHP}</div>
         </div>
       </div>
 
-      <div className="flex">
+      <div className="border-t border-t-gray-300  flex">
         <div className="border-r border-r-gray-300 flex-1 flex flex-col items-center py-4">
           <h3 className="font-bold">Weight</h3>
           {pokemon.weight.minimum} - {pokemon.weight.maximum}

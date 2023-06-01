@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { FunctionComponent, useState } from "react";
 
 import { NexusGenArgTypes } from "api/src/nexus";
@@ -11,6 +12,7 @@ const IndexPage: FunctionComponent = () => {
   const [queryPages, setQueryPage] = useState<
     Array<NexusGenArgTypes["Query"]["pokemons"]>
   >([{ cursor: null }]);
+  const [listingVariant, setListingVariant] = useState<"grid" | "list">("grid");
 
   return (
     <div className="container flex flex-col gap-4 py-8">
@@ -42,20 +44,45 @@ const IndexPage: FunctionComponent = () => {
             }}
           />
         </div>
-        <button className="text-emerald-500">
+        <button
+          className={clsx(
+            "text-emerald-500",
+            listingVariant !== "list" && "opacity-20"
+          )}
+          onClick={(ev) => {
+            ev.preventDefault();
+            setListingVariant("list");
+          }}
+        >
           <ListIcon className="h-8 w-8" />
         </button>
-        <button className="text-emerald-500 opacity-20">
+        <button
+          className={clsx(
+            "text-emerald-500",
+            listingVariant !== "grid" && "opacity-20"
+          )}
+          onClick={(ev) => {
+            ev.preventDefault();
+            setListingVariant("grid");
+          }}
+        >
           <GridIcon className="h-10 w-10" />
         </button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div
+        className={clsx({
+          "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4":
+            listingVariant === "grid",
+          "flex flex-col gap-4": listingVariant === "list",
+        })}
+      >
         {queryPages.map((qp, idx) => (
           <PokemonsListing
             key={qp.cursor}
             isLastPage={idx === queryPages.length - 1}
             variables={qp}
+            variant={listingVariant}
             loadMore={(cursor) => {
               setQueryPage([...queryPages, { cursor }]);
             }}

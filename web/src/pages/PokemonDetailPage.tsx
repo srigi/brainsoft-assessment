@@ -34,7 +34,7 @@ const PokemonDetailPage: FunctionComponent = () => {
   });
 
   return (
-    <div className="container flex flex-col gap-4 py-8">
+    <div className="container flex flex-col gap-4 px-40 py-8">
       {fetching ? (
         <h2>Loading</h2>
       ) : error ? (

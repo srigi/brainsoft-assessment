@@ -3,11 +3,13 @@ import { gql, useQuery } from "urql";
 
 import { NexusGenObjects, NexusGenArgTypes } from "api/src/nexus";
 import PokemonCard from "./PokemonCard";
+import PokemonListingDetailCard from "./PokemonListingDetailCard";
 
 interface Props {
   isLastPage: boolean;
   loadMore: (cursor: string) => void;
   variables: NexusGenArgTypes["Query"]["pokemons"];
+  variant: "grid" | "list";
 }
 
 const pokemonsQuery = gql<
@@ -43,14 +45,67 @@ const pokemonsQuery = gql<
     }
   }
 `;
+const pokemonsDetailedQuery = gql<
+  {
+    pokemons: {
+      edges: Array<NexusGenObjects["Pokemon"]>;
+      pageInfo: NexusGenObjects["PokemonListPageInfo"];
+    };
+  },
+  NexusGenArgTypes["Query"]["pokemons"]
+>`
+  query Pokemons(
+    $findByName: String
+    $isFavourited: Boolean
+    $cursor: String
+    $pageSize: Int
+  ) {
+    pokemons(
+      findByName: $findByName
+      isFavourited: $isFavourited
+      cursor: $cursor
+      pageSize: $pageSize
+    ) {
+      pageInfo {
+        nextCursor
+      }
+      edges {
+        id
+        name
+        favourite
+        types
+        maxCP
+        maxHP
+        height {
+          minimum
+          maximum
+        }
+        weight {
+          minimum
+          maximum
+        }
+      }
+    }
+  }
+`;
 
 const PokemonsListing: FunctionComponent<Props> = ({
   isLastPage,
   loadMore,
   variables,
+  variant,
 }) => {
   const [{ data, fetching, error }] = useQuery({
-    query: pokemonsQuery,
+    query: (() => {
+      switch (variant) {
+        case "grid":
+          return pokemonsQuery;
+        case "list":
+          return pokemonsDetailedQuery;
+        default:
+          throw "Unknown listing variant!";
+      }
+    })(),
     variables,
   });
 
@@ -61,7 +116,12 @@ const PokemonsListing: FunctionComponent<Props> = ({
   ) : (
     <>
       {data.pokemons.edges.map((p) => (
-        <PokemonCard key={p.id} pokemon={p} />
+        <>
+          {variant === "grid" && <PokemonCard key={p.id} pokemon={p} />}
+          {variant === "list" && (
+            <PokemonListingDetailCard key={p.id} pokemon={p} />
+          )}
+        </>
       ))}
 
       {isLastPage && data.pokemons.pageInfo.nextCursor != null && (

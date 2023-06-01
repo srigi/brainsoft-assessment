@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { FunctionComponent, useState } from "react";
 
 interface Props {
@@ -17,7 +18,7 @@ const Switch: FunctionComponent<Props> = ({
     <div className="border-2 border-emerald-500 flex text-emerald-500">
       {values.map((v, idx) => (
         <div
-          className={`flex-1 ${idx === values.length - 1 ? "relative" : ""}`}
+          className={clsx("flex-1", idx === values.length - 1 && "relative")}
           key={v}
         >
           <input

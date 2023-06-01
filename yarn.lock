@@ -1746,6 +1746,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:~1.2":
+  version: 1.2.1
+  resolution: "clsx@npm:1.2.1"
+  checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -5365,6 +5372,7 @@ __metadata:
     "@vitejs/plugin-react-swc": ~3.0
     api: "workspace:*"
     autoprefixer: ~10.4
+    clsx: ~1.2
     eslint-plugin-react-hooks: ^4.6
     eslint-plugin-react-refresh: ^0.3
     postcss: ^8.4
