@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 
 import PokemonsListing from "../components/PokemonsListing";
 import SearchField from "../components/SearchField";
@@ -7,6 +7,8 @@ import { ReactComponent as ListIcon } from "../assets/list.svg";
 import { ReactComponent as GridIcon } from "../assets/grid.svg";
 
 const IndexPage: FunctionComponent = () => {
+  const [queryPages, setQueryPage] = useState([{ cursor: null }]);
+
   return (
     <div className="container flex flex-col gap-4 py-8">
       <Switch />
@@ -23,7 +25,18 @@ const IndexPage: FunctionComponent = () => {
         </button>
       </div>
 
-      <PokemonsListing />
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {queryPages.map((qp, idx) => (
+          <PokemonsListing
+            key={qp.cursor}
+            isLastPage={idx === queryPages.length - 1}
+            variables={qp}
+            loadMore={(cursor) => {
+              setQueryPage([...queryPages, { cursor }]);
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };
