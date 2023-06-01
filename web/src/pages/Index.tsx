@@ -14,13 +14,31 @@ const IndexPage: FunctionComponent = () => {
 
   return (
     <div className="container flex flex-col gap-4 py-8">
-      <Switch />
+      <Switch
+        values={["All", "Favorites"]}
+        initialValue="All"
+        onChange={(value) => {
+          setQueryPage([
+            {
+              cursor: null,
+              isFavourited: value === "Favorites" ? true : undefined,
+              findByName: queryPages[0].findByName,
+            },
+          ]);
+        }}
+      />
 
       <div className="flex gap-4">
         <div className="flex-1">
           <TextInputAffirm
             onAffirm={(value) => {
-              setQueryPage([{ cursor: null, findByName: value }]);
+              setQueryPage([
+                {
+                  cursor: null,
+                  findByName: value,
+                  isFavourited: queryPages[0].isFavourited,
+                },
+              ]);
             }}
           />
         </div>
