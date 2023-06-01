@@ -1,14 +1,24 @@
 import { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
 import { gql, useQuery } from "urql";
 
-import { NexusGenObjects } from "api/src/nexus";
-import { ReactComponent as HeartIcon } from "../assets/heart.svg";
-import { ReactComponent as HeartFilledIcon } from "../assets/heart-filled.svg";
+import { NexusGenObjects, NexusGenArgTypes } from "api/src/nexus";
+import PokemonCard from "./PokemonCard";
 
-const pokemonsQuery = gql<{
-  pokemons: { edges: Array<NexusGenObjects["Pokemon"]> };
-}>`
+interface Props {
+  isLastPage: boolean;
+  loadMore: (cursor: string) => void;
+  variables: NexusGenArgTypes["Query"]["pokemons"];
+}
+
+const pokemonsQuery = gql<
+  {
+    pokemons: {
+      edges: Array<NexusGenObjects["Pokemon"]>;
+      pageInfo: NexusGenObjects["PokemonListPageInfo"];
+    };
+  },
+  NexusGenArgTypes["Query"]["pokemons"]
+>`
   query Pokemons(
     $findByName: String
     $isFavourited: Boolean
@@ -21,7 +31,6 @@ const pokemonsQuery = gql<{
       cursor: $cursor
       pageSize: $pageSize
     ) {
-      totalCount
       pageInfo {
         nextCursor
       }
@@ -35,10 +44,14 @@ const pokemonsQuery = gql<{
   }
 `;
 
-const PokemonsListing: FunctionComponent = () => {
+const PokemonsListing: FunctionComponent<Props> = ({
+  isLastPage,
+  loadMore,
+  variables,
+}) => {
   const [{ data, fetching, error }] = useQuery({
     query: pokemonsQuery,
-    variables: {},
+    variables,
   });
 
   return fetching ? (
@@ -46,41 +59,23 @@ const PokemonsListing: FunctionComponent = () => {
   ) : error ? (
     <p>Oh no... {error.message}</p>
   ) : (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <>
       {data.pokemons.edges.map((p) => (
-        <div key={p.id} className="border border-emerald-500 flex flex-col">
-          <Link
-            to={`pokemon/${p.id}`}
-            className="bg-white flex flex-col flex-1 justify-center p-4"
-          >
-            <img
-              src={`https://img.pokemondb.net/artwork/${p.name
-                .toLowerCase()
-                .replace(/[&\\/#,+()$~%.'":*?<>{}]/g, "")
-                .replace(" ", "-")}.jpg`}
-              alt={`Avatar image of ${p.name} pokémon`}
-            />
-          </Link>
-          <div className="h-[74px] relative">
-            <button className="absolute top-6 right-2 text-amber-600 z-10">
-              {p.favourite === true ? (
-                <HeartFilledIcon className="h-7 w-7" />
-              ) : (
-                <HeartIcon className="h-7 w-7" />
-              )}
-            </button>
-
-            <Link
-              to={`pokemon/${p.id}`}
-              className="absolute inset-x-0 inset-y-0 p-3"
-            >
-              <h4 className="font-bold text-xl">{p.name}</h4>
-              <span>{p.types.join(", ")}</span>
-            </Link>
-          </div>
-        </div>
+        <PokemonCard key={p.id} pokemon={p} />
       ))}
-    </div>
+
+      {isLastPage && data.pokemons.pageInfo.nextCursor != null && (
+        <button
+          className="bg-emerald-500 text-white mx-auto px-8 py-2"
+          onClick={(ev) => {
+            ev.preventDefault();
+            loadMore(data.pokemons.pageInfo.nextCursor);
+          }}
+        >
+          Load more
+        </button>
+      )}
+    </>
   );
 };
 
