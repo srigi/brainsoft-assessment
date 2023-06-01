@@ -1,4 +1,4 @@
-DATABASE_URL="postgresql://postgres@brainsoft-assessment.localdev.io:54329/postgres"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/postgres"
 
 API_BASE_URL=http://localhost:3000
 WEBSITE_NAME="Igor Hlina assessment"
