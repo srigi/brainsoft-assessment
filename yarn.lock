@@ -5,6 +5,18 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@0no-co/graphql.web@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@0no-co/graphql.web@npm:1.0.1"
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+  peerDependenciesMeta:
+    graphql:
+      optional: true
+  checksum: e577a80a210e48e0b054dcf363efa2107ab67b931ec923b1540300350f55576fc5493b6d4ca7f35379748d20bc0280ee32bdc98c2c2380476c814a472bcf0757
+  languageName: node
+  linkType: hard
+
 "@alloc/quick-lru@npm:^5.2.0":
   version: 5.2.0
   resolution: "@alloc/quick-lru@npm:5.2.0"
@@ -483,6 +495,16 @@ __metadata:
     ajv-formats: ^2.1.1
     fast-uri: ^2.0.0
   checksum: 5e5b16469f8d586473d0b32e3a9cf38c0d86ef2a6fb7ea12ed7f3665642bd8eb2dde9adcc317814369cb5a58210bfdac35996fa87d1cc23e88bbc799f0b128b0
+  languageName: node
+  linkType: hard
+
+"@fastify/cors@npm:~8.3":
+  version: 8.3.0
+  resolution: "@fastify/cors@npm:8.3.0"
+  dependencies:
+    fastify-plugin: ^4.0.0
+    mnemonist: 0.39.5
+  checksum: f487b5a8823264c3db58e99df020e38ada524514d60f2c5c2e01b994519545e2fc9481006d98e485b40e536b9b89f72af9061d9377b8e93f6ce07b14d40164a2
   languageName: node
   linkType: hard
 
@@ -1208,6 +1230,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@urql/core@npm:^4.0.0":
+  version: 4.0.8
+  resolution: "@urql/core@npm:4.0.8"
+  dependencies:
+    "@0no-co/graphql.web": ^1.0.1
+    wonka: ^6.3.2
+  checksum: f66b978ffff09acf5c005b0758020a57066d42873f6142ad68041b306f0f029286743f2b370e91762d6623c779f63afdbfb4d54984c66c03eab2529f98da5fcf
+  languageName: node
+  linkType: hard
+
 "@vitejs/plugin-react-swc@npm:~3.0":
   version: 3.0.1
   resolution: "@vitejs/plugin-react-swc@npm:3.0.1"
@@ -1377,10 +1409,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"api@workspace:api":
+"api@workspace:*, api@workspace:api":
   version: 0.0.0-use.local
   resolution: "api@workspace:api"
   dependencies:
+    "@fastify/cors": ~8.3
     "@types/node": ^20
     drizzle-kit: ^0.18
     drizzle-orm: ^0.26
@@ -1453,7 +1486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.14":
+"autoprefixer@npm:~10.4":
   version: 10.4.14
   resolution: "autoprefixer@npm:10.4.14"
   dependencies:
@@ -3821,6 +3854,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mnemonist@npm:0.39.5":
+  version: 0.39.5
+  resolution: "mnemonist@npm:0.39.5"
+  dependencies:
+    obliterator: ^2.0.1
+  checksum: 6669d687a434226924b2c84ee6eb7ce7d0f83dfc5caad8bcc164c73c0c11fb6d43cbe32636e710f068046f4b40a56c3032532554e93e02640aafc6ca3dd222e6
+  languageName: node
+  linkType: hard
+
 "mqemitter@npm:^5.0.0":
   version: 5.0.0
   resolution: "mqemitter@npm:5.0.0"
@@ -3980,6 +4022,13 @@ __metadata:
   version: 3.0.0
   resolution: "object-hash@npm:3.0.0"
   checksum: 80b4904bb3857c52cc1bfd0b52c0352532ca12ed3b8a6ff06a90cd209dfda1b95cee059a7625eb9da29537027f68ac4619363491eedb2f5d3dddbba97494fd6c
+  languageName: node
+  linkType: hard
+
+"obliterator@npm:^2.0.1":
+  version: 2.0.4
+  resolution: "obliterator@npm:2.0.4"
+  checksum: f28ad35b6d812089315f375dc3e6e5f9bebf958ebe4b10ccd471c7115cbcf595e74bdac4783ae758e5b1f47e3096427fdb37cfa7bed566b132df92ff317b9a7c
   languageName: node
   linkType: hard
 
@@ -4232,7 +4281,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.24":
+"postcss@npm:^8.4, postcss@npm:^8.4.23":
   version: 8.4.24
   resolution: "postcss@npm:8.4.24"
   dependencies:
@@ -4859,7 +4908,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.3.2":
+"tailwindcss@npm:~3.3":
   version: 3.3.2
   resolution: "tailwindcss@npm:3.3.2"
   dependencies:
@@ -5199,6 +5248,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"urql@npm:~4.0":
+  version: 4.0.3
+  resolution: "urql@npm:4.0.3"
+  dependencies:
+    "@urql/core": ^4.0.0
+    wonka: ^6.3.2
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: b0bf4b6e53ffadea3fb6b84eb6662d30c35d2c8ab65914473a1db7dbf9f97af819da082fcf1fcd922aa2f5e9fe1897cd7d651b5c2114d4af17415f1ba66e1ac3
+  languageName: node
+  linkType: hard
+
 "util-deprecate@npm:^1.0.1, util-deprecate@npm:^1.0.2":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
@@ -5267,16 +5328,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
+    "@types/node": ^20
     "@types/react": ^18
     "@types/react-dom": ^18
     "@vitejs/plugin-react-swc": ~3.0
-    autoprefixer: ^10.4.14
+    api: "workspace:*"
+    autoprefixer: ~10.4
     eslint-plugin-react-hooks: ^4.6
     eslint-plugin-react-refresh: ^0.3
-    postcss: ^8.4.24
+    postcss: ^8.4
     react: ~18.2
     react-dom: ~18.2
-    tailwindcss: ^3.3.2
+    tailwindcss: ~3.3
+    urql: ~4.0
     vite: ~4.3
     vite-plugin-svgr: ~3.2
   languageName: unknown
@@ -5299,6 +5363,13 @@ __metadata:
   dependencies:
     string-width: ^1.0.2 || 2 || 3 || 4
   checksum: d5fc37cd561f9daee3c80e03b92ed3e84d80dde3365a8767263d03dacfc8fa06b065ffe1df00d8c2a09f731482fcacae745abfbb478d4af36d0a891fad4834d3
+  languageName: node
+  linkType: hard
+
+"wonka@npm:^6.3.2":
+  version: 6.3.2
+  resolution: "wonka@npm:6.3.2"
+  checksum: e161f377a4ea17cc2b19fe8820219a9e3e2c78db5df08b820525bc2cc261184823d1bc33bd2385e632656a9676c9de6ff614b6324c441dd5fc5faa253433d032
   languageName: node
   linkType: hard
 

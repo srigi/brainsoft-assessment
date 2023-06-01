@@ -1,3 +1,4 @@
+import cors from "@fastify/cors";
 import fastify, {
   FastifyInstance,
   FastifyListenOptions,
@@ -8,8 +9,15 @@ import mercurius from "mercurius";
 import { db } from "./db";
 import { schema } from "./schema";
 
-function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
+async function createServer(
+  opts: FastifyServerOptions = {}
+): Promise<FastifyInstance> {
   const server = fastify(opts);
+
+  await server.register(cors, {
+    origin: "*",
+    methods: "GET, POST",
+  });
 
   server.get("/ping", async () => {
     return "pong!";
@@ -25,7 +33,7 @@ function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
 }
 
 (async () => {
-  const server = createServer({
+  const server = await createServer({
     logger: true,
   });
 

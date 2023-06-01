@@ -1,3 +1,5 @@
-DATABASE_URL=
-WEBSITE_NAME="Brainsoft assessment"
-WEBSITE_URL=http://localhost:3000
+DATABASE_URL="postgresql://postgres@brainsoft-assessment.localdev.io:54329/postgres"
+
+API_BASE_URL=http://localhost:3000
+WEBSITE_NAME="Igor Hlina assessment"
+WEBSITE_URL=http://localhost:8000

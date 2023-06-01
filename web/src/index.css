@@ -8,11 +8,4 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-
-
-  --radio-switch-width: 186px;
-  --radio-switch-height: 46px;
-  --radio-switch-padding: 3px;
-  --radio-switch-radius: 50em;
-  --radio-switch-animation-duration: 0.3s;
 }

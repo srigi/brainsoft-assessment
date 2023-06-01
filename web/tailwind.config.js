@@ -11,7 +11,7 @@ module.exports = {
         md: "2rem",
       },
       screens: {
-        lg: "760px",
+        lg: "1024px",
       },
     },
   },

@@ -49,6 +49,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
+      ["@0no-co/graphql.web", [\
+        ["npm:1.0.1", {\
+          "packageLocation": "./.yarn/cache/@0no-co-graphql.web-npm-1.0.1-955f58dd73-e577a80a21.zip/node_modules/@0no-co/graphql.web/",\
+          "packageDependencies": [\
+            ["@0no-co/graphql.web", "npm:1.0.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:cbe9f28fa9c9088a02e12cfada81219be2db7be5b5eadb2292348007760cbbd48df3e4bda694fe5465d93b8158f5311b9ed11284d7af8479045569938ad33d44#npm:1.0.1", {\
+          "packageLocation": "./.yarn/__virtual__/@0no-co-graphql.web-virtual-c15207be16/0/cache/@0no-co-graphql.web-npm-1.0.1-955f58dd73-e577a80a21.zip/node_modules/@0no-co/graphql.web/",\
+          "packageDependencies": [\
+            ["@0no-co/graphql.web", "virtual:cbe9f28fa9c9088a02e12cfada81219be2db7be5b5eadb2292348007760cbbd48df3e4bda694fe5465d93b8158f5311b9ed11284d7af8479045569938ad33d44#npm:1.0.1"],\
+            ["@types/graphql", null],\
+            ["graphql", null]\
+          ],\
+          "packagePeers": [\
+            "@types/graphql",\
+            "graphql"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@alloc/quick-lru", [\
         ["npm:5.2.0", {\
           "packageLocation": "./.yarn/cache/@alloc-quick-lru-npm-5.2.0-eb83517088-bdc35758b5.zip/node_modules/@alloc/quick-lru/",\
@@ -631,6 +653,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ajv", "npm:8.12.0"],\
             ["ajv-formats", "virtual:d1a90dc51fd4f27c180a2a806ba9ab5e42abb6f7420ba1e8ab979625b7462658b5a2ecaaf9566f9537491e28e0df48947655c2ecc4489537931b03e5f7e9da96#npm:2.1.1"],\
             ["fast-uri", "npm:2.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fastify/cors", [\
+        ["npm:8.3.0", {\
+          "packageLocation": "./.yarn/cache/@fastify-cors-npm-8.3.0-6f830323f3-f487b5a882.zip/node_modules/@fastify/cors/",\
+          "packageDependencies": [\
+            ["@fastify/cors", "npm:8.3.0"],\
+            ["fastify-plugin", "npm:4.5.0"],\
+            ["mnemonist", "npm:0.39.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1655,6 +1688,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@urql/core", [\
+        ["npm:4.0.8", {\
+          "packageLocation": "./.yarn/cache/@urql-core-npm-4.0.8-cbe9f28fa9-f66b978fff.zip/node_modules/@urql/core/",\
+          "packageDependencies": [\
+            ["@urql/core", "npm:4.0.8"],\
+            ["@0no-co/graphql.web", "virtual:cbe9f28fa9c9088a02e12cfada81219be2db7be5b5eadb2292348007760cbbd48df3e4bda694fe5465d93b8158f5311b9ed11284d7af8479045569938ad33d44#npm:1.0.1"],\
+            ["wonka", "npm:6.3.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@vitejs/plugin-react-swc", [\
         ["npm:3.0.1", {\
           "packageLocation": "./.yarn/cache/@vitejs-plugin-react-swc-npm-3.0.1-c9f961e211-4023b8a582.zip/node_modules/@vitejs/plugin-react-swc/",\
@@ -1877,6 +1921,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./api/",\
           "packageDependencies": [\
             ["api", "workspace:api"],\
+            ["@fastify/cors", "npm:8.3.0"],\
             ["@types/node", "npm:20.2.5"],\
             ["drizzle-kit", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.18.1"],\
             ["drizzle-orm", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.26.1"],\
@@ -4647,6 +4692,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["mnemonist", [\
+        ["npm:0.39.5", {\
+          "packageLocation": "./.yarn/cache/mnemonist-npm-0.39.5-cbd4ee161e-6669d687a4.zip/node_modules/mnemonist/",\
+          "packageDependencies": [\
+            ["mnemonist", "npm:0.39.5"],\
+            ["obliterator", "npm:2.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["mqemitter", [\
         ["npm:5.0.0", {\
           "packageLocation": "./.yarn/cache/mqemitter-npm-5.0.0-685d93cca9-afbbf5a790.zip/node_modules/mqemitter/",\
@@ -4838,6 +4893,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/object-hash-npm-3.0.0-d941e0cabe-80b4904bb3.zip/node_modules/object-hash/",\
           "packageDependencies": [\
             ["object-hash", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["obliterator", [\
+        ["npm:2.0.4", {\
+          "packageLocation": "./.yarn/cache/obliterator-npm-2.0.4-b21b355294-f28ad35b6d.zip/node_modules/obliterator/",\
+          "packageDependencies": [\
+            ["obliterator", "npm:2.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6332,6 +6396,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["urql", [\
+        ["npm:4.0.3", {\
+          "packageLocation": "./.yarn/cache/urql-npm-4.0.3-9bc60d1f22-b0bf4b6e53.zip/node_modules/urql/",\
+          "packageDependencies": [\
+            ["urql", "npm:4.0.3"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:4.0.3", {\
+          "packageLocation": "./.yarn/__virtual__/urql-virtual-28117e2861/0/cache/urql-npm-4.0.3-9bc60d1f22-b0bf4b6e53.zip/node_modules/urql/",\
+          "packageDependencies": [\
+            ["urql", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:4.0.3"],\
+            ["@types/react", "npm:18.2.7"],\
+            ["@urql/core", "npm:4.0.8"],\
+            ["react", "npm:18.2.0"],\
+            ["wonka", "npm:6.3.2"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["util-deprecate", [\
         ["npm:1.0.2", {\
           "packageLocation": "./.yarn/cache/util-deprecate-npm-1.0.2-e3fe1a219c-474acf1146.zip/node_modules/util-deprecate/",\
@@ -6363,7 +6451,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["vite", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:4.3.9"],\
             ["@types/less", null],\
-            ["@types/node", null],\
+            ["@types/node", "npm:20.2.5"],\
             ["@types/sass", null],\
             ["@types/stylus", null],\
             ["@types/sugarss", null],\
@@ -6424,9 +6512,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./web/",\
           "packageDependencies": [\
             ["web", "workspace:web"],\
+            ["@types/node", "npm:20.2.5"],\
             ["@types/react", "npm:18.2.7"],\
             ["@types/react-dom", "npm:18.2.4"],\
             ["@vitejs/plugin-react-swc", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:3.0.1"],\
+            ["api", "workspace:api"],\
             ["autoprefixer", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:10.4.14"],\
             ["eslint-plugin-react-hooks", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:4.6.0"],\
             ["eslint-plugin-react-refresh", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:0.3.5"],\
@@ -6434,6 +6524,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:18.2.0"],\
             ["tailwindcss", "npm:3.3.2"],\
+            ["urql", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:4.0.3"],\
             ["vite", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:4.3.9"],\
             ["vite-plugin-svgr", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:3.2.0"]\
           ],\
@@ -6456,6 +6547,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["wide-align", "npm:1.1.5"],\
             ["string-width", "npm:4.2.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["wonka", [\
+        ["npm:6.3.2", {\
+          "packageLocation": "./.yarn/cache/wonka-npm-6.3.2-ed435c3228-e161f377a4.zip/node_modules/wonka/",\
+          "packageDependencies": [\
+            ["wonka", "npm:6.3.2"]\
           ],\
           "linkType": "HARD"\
         }]\
