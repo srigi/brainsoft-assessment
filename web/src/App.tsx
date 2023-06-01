@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import {
   Client,
   Provider as UrqlProvider,
@@ -13,7 +13,7 @@ const client = new Client({
   exchanges: [cacheExchange, fetchExchange],
   url: `${process.env.API_BASE_URL}/graphql`,
 });
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/pokemon/:id",
     element: <PokemonDetailPage />,
