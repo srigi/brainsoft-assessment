@@ -1,7 +1,8 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
+import { gql, useMutation } from "urql";
 
-import { NexusGenObjects } from "api/src/nexus";
+import { NexusGenArgTypes, NexusGenObjects } from "api/src/nexus";
 import { ReactComponent as HeartIcon } from "../assets/heart.svg";
 import { ReactComponent as HeartFilledIcon } from "../assets/heart-filled.svg";
 
@@ -9,7 +10,28 @@ interface Props {
   pokemon: NexusGenObjects["Pokemon"];
 }
 
+const pokemonFavoriteMutation = gql<
+  {
+    pokemons: {
+      edges: Array<NexusGenObjects["Pokemon"]>;
+      pageInfo: NexusGenObjects["PokemonListPageInfo"];
+    };
+  },
+  NexusGenArgTypes["Query"]["pokemons"]
+>`
+  mutation Favourite($id: String!, $value: Boolean!) {
+    setFavourite(id: $id, value: $value) {
+      id
+      name
+      favourite
+      types
+    }
+  }
+`;
+
 const PokemonCard: FunctionComponent<Props> = ({ pokemon }) => {
+  const [, favorite] = useMutation(pokemonFavoriteMutation);
+
   return (
     <div className="border border-emerald-500 flex flex-col">
       <Link
@@ -25,7 +47,13 @@ const PokemonCard: FunctionComponent<Props> = ({ pokemon }) => {
         />
       </Link>
       <div className="h-[74px] relative">
-        <button className="absolute top-6 right-2 text-amber-600 z-10">
+        <button
+          className="absolute top-6 right-2 text-amber-600 z-10"
+          onClick={(ev) => {
+            ev.preventDefault();
+            favorite({ id: pokemon.id, value: !pokemon.favourite });
+          }}
+        >
           {pokemon.favourite === true ? (
             <HeartFilledIcon className="h-7 w-7" />
           ) : (
