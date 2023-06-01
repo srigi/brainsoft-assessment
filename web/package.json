@@ -9,6 +9,7 @@
     "api": "workspace:*",
     "react": "~18.2",
     "react-dom": "~18.2",
+    "react-router-dom": "~6.11",
     "urql": "~4.0"
   },
   "devDependencies": {

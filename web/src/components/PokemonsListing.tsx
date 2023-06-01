@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 import { gql, useQuery } from "urql";
 
 import { NexusGenObjects } from "api/src/nexus";
@@ -48,8 +49,8 @@ const PokemonsListing: FunctionComponent = () => {
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {data.pokemons.edges.map((p) => (
         <div key={p.id} className="border border-emerald-500 flex flex-col">
-          <a
-            href={`#`}
+          <Link
+            to={`pokemon/${p.id}`}
             className="bg-white flex flex-col flex-1 justify-center p-4"
           >
             <img
@@ -59,7 +60,7 @@ const PokemonsListing: FunctionComponent = () => {
                 .replace(" ", "-")}.jpg`}
               alt={`Avatar image of ${p.name} pokémon`}
             />
-          </a>
+          </Link>
           <div className="h-[74px] relative">
             <button className="absolute top-6 right-2 text-amber-600 z-10">
               {p.favourite === true ? (
@@ -69,10 +70,13 @@ const PokemonsListing: FunctionComponent = () => {
               )}
             </button>
 
-            <a href={`#`} className="absolute inset-x-0 inset-y-0 p-3">
+            <Link
+              to={`pokemon/${p.id}`}
+              className="absolute inset-x-0 inset-y-0 p-3"
+            >
               <h4 className="font-bold text-xl">{p.name}</h4>
               <span>{p.types.join(", ")}</span>
-            </a>
+            </Link>
           </div>
         </div>
       ))}
