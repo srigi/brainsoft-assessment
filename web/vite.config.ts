@@ -1,10 +1,10 @@
 /* eslint-env node */
+/// <reference types="vite/client" />
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
-/** @type {import('vite').UserConfig} */
 export default defineConfig({
   define: {
     "process.env.API_BASE_URL": JSON.stringify(process.env.API_BASE_URL),
