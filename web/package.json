@@ -2,7 +2,7 @@
   "name": "web",
   "scripts": {
     "dev": "vite",
-    "lint": "eslint 'src/**/*.{js,json,ts}' --max-warnings 3 --report-unused-disable-directives",
+    "lint": "eslint 'src/**/*.{js,json,ts,tsx}' --max-warnings 3 --report-unused-disable-directives",
     "tsc": "tsc -noEmit"
   },
   "dependencies": {

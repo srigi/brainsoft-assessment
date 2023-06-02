@@ -12,6 +12,7 @@ export default defineConfig({
   plugins: [react(), svgr()],
   root: "src",
   server: {
+    host: "127.0.0.1",
     port: process.env.WEB_PORT != null ? +process.env.WEB_PORT : 8000,
   },
 });

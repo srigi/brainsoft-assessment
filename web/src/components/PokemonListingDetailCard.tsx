@@ -4,7 +4,6 @@ import { gql, useMutation } from "urql";
 import { NexusGenArgTypes, NexusGenObjects } from "api/src/nexus";
 import { ReactComponent as HeartIcon } from "../assets/heart.svg";
 import { ReactComponent as HeartFilledIcon } from "../assets/heart-filled.svg";
-import clsx from "clsx";
 import { MAX_CP, MAX_HP } from "../constants";
 import { Link } from "react-router-dom";
 
